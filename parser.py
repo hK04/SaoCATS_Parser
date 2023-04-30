@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+from inconsistencyFixer import fix_str
+
 import time 
 
 
@@ -78,7 +80,7 @@ class Searcher():
                 download.click()
 
                 with open('{0}{1}.txt'.format(save_adress, name), 'w') as f:
-                    f.write(self.driver.find_element(by=By.TAG_NAME, value = "body").text)
+                    f.write(fix_str(self.driver.find_element(by=By.TAG_NAME, value = "body").text))
 
                 #time.sleep(delay * 200)
                 #self.driver.close()
