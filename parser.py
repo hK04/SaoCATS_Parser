@@ -12,13 +12,13 @@ delay = 2
 d_angle = '140s' #s 
 
 def search_question(name, RAh, RAm, RAs, DE, DEd, DEm, DEs, Epoch):
-    if str(RAh) == '0':
+    if str(RAh) in [str(i) for i in range(10)]:
         RAh = '00'
-    if str(RAm) == '0':
+    if str(RAm) in [str(i) for i in range(10)]:
         RAm = '00'
-    if str(DEd) == '0':
+    if str(DEd) in [str(i) for i in range(10)]:
         DEd = '00'
-    if str(DEm) == '0':
+    if str(DEm) in [str(i) for i in range(10)]:
         DEm = '00'
 
     return '{0} {1} {2} {3} {4}{5} {6} {7} {8}'.format(name, RAh, RAm, RAs, DE, DEd, DEm, DEs, Epoch)

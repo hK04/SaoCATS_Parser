@@ -68,7 +68,8 @@ for i, file in enumerate(files[start_:ending_]):
         try:
             if str(objects[i]) not in images:
                 plotter(fig, ax, objects[i], freqs, flux)
-
+            else:
+                pass
         except:
             ERROR_PLOT = 1
         

@@ -1,5 +1,5 @@
-inconsistencies = ['PKS ', 'PCNT G', '_G', ' G', 'NRAO ']
-fixes = ['PKS', 'PCNTG', 'G', 'G', 'NRAO']
+inconsistencies = ['PKS ', 'PCNT G', '_G', ' G', 'NRAO ', 'NAIC5G', '3CR   ', '3C ', 'MSLGC', 'SMC ', 'NGC ']
+fixes = ['PKS', 'PCNTG', 'G', 'G', 'NRAO', 'NAIC5G ', '3CR', '3C', 'MSLGC ', 'SMC', 'NGC']
 
 def fix_str(str):
     for i, inconsitency in enumerate(inconsistencies):
