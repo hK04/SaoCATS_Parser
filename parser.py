@@ -13,13 +13,13 @@ d_angle = '140s' #s
 
 def search_question(name, RAh, RAm, RAs, DE, DEd, DEm, DEs, Epoch):
     if str(RAh) in [str(i) for i in range(10)]:
-        RAh = '00'
+        RAh = '0' + str(RAh)
     if str(RAm) in [str(i) for i in range(10)]:
-        RAm = '00'
+        RAm = '0' + str(RAm)
     if str(DEd) in [str(i) for i in range(10)]:
-        DEd = '00'
+        DEd =  '0' + str(DEd)
     if str(DEm) in [str(i) for i in range(10)]:
-        DEm = '00'
+        DEm = '0' + str(DEm)
 
     return '{0} {1} {2} {3} {4}{5} {6} {7} {8}'.format(name, RAh, RAm, RAs, DE, DEd, DEm, DEs, Epoch)
 
@@ -69,10 +69,10 @@ class Searcher():
                 epoch.clear()
                 epoch.send_keys(Epoch)
 
-                #time.sleep(delay)
+                
                 textarea = self.driver.find_element(by=By.XPATH, value = '//textarea[@name="LIST_OBJ"]')
                 textarea.send_keys(search_question(name, RAh, RAm, RAs, DE, DEd, DEm, DEs, Epoch))
-
+                #time.sleep(5)
                 submit = self.driver.find_element(by=By.XPATH, value = '//input[@type="SUBMIT"]')
                 submit.click()
 
