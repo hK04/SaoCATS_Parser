@@ -45,68 +45,62 @@ def plotter(fig, ax, name, frequencies, fluxes, catalogs):
     for i, name_ in enumerate(names):
         ax.scatter(frequencies.loc[ids_[i]], fluxes.loc[ids_[i]], s = 200, label = name_)
 
-    #ax.legend()
-
-    #ax.scatter(2.7, 150, color = 'red', s = 30)
-
     ax.legend(fontsize = 30, loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=10)
     ax.set_title(r'Object: {0}. Chart of S($\nu$)'.format(name))
-    #plt.show()
+
     fig.savefig(PLOT_DIR + str(name) + PLOT_EXT)
 
 files = sorted(list(Path(DATA_DIR).rglob('*' + DATA_EXT)))
-#print(files[1059])
+
 objects = pd.Series([path.name.replace(DATA_EXT, '') for path in files])
-#print(objects[1059])
-#print(objects)
 
 images  = [x.name.replace(PLOT_EXT, '') for x in sorted(list(Path(PLOT_DIR).rglob('*' + PLOT_EXT)))]
-#print(images)
 
 fig, ax = plt.subplots(figsize = (40, 40))
 plt.rcParams.update({'font.size' : 40})
 
 start_ = 0
-ending_ = 100 #len(files)
+ending_ = len(files)
 
 counter_of_broken = 0
 broken_files      = []
 
-for i, file in enumerate(files[start_:ending_]):
+if __name__ == "__main__":
+    for i, file in enumerate(files[start_:ending_]):
 
-    freqs = []
-    flux  = []
+        freqs = []
+        flux  = []
 
-    ERROR_DATA = 0
-    ERROR_PLOT = 0
+        ERROR_DATA = 0
+        ERROR_PLOT = 0
 
-    try:
-        data  = ascii.read(file).to_pandas()
-        freqs = data['col11'][data['col11'].astype(str).str.isdigit() == True].astype('float64') / FREQS_MAG
-        flux  = data['col12'][data['col11'].astype(str).str.isdigit() == True].astype('float64') * FLUX_MAG
-        catalogs = data['col1'][data['col11'].astype(str).str.isdigit() == True]
-        #print(pd.DataFrame(data = np.array([freqs, flux]).T, columns=['freqs', 'flux']))
-    except:
-        ERROR_DATA = 1
-    
-    if not ERROR_DATA:
         try:
-            if str(objects[i]) not in images:
-                plotter(fig, ax, objects[i], freqs, flux, catalogs)
-            else:
-                pass
+            data  = ascii.read(file).to_pandas()
+            freqs = data['col11'][data['col11'].astype(str).str.isdigit() == True].astype('float64') / FREQS_MAG
+            flux  = data['col12'][data['col11'].astype(str).str.isdigit() == True].astype('float64') * FLUX_MAG
+            catalogs = data['col1'][data['col11'].astype(str).str.isdigit() == True]
+            #print(pd.DataFrame(data = np.array([freqs, flux]).T, columns=['freqs', 'flux']))
         except:
-            ERROR_PLOT = 1
+            ERROR_DATA = 1
         
-    if ERROR_PLOT:
-        print('{0}: {1}, PLOT ERROR'.format(i, objects[i]))
-    if ERROR_DATA:
-        print('{0}: {1}, DATA ERROR'.format(i, objects[i]))
-    if ERROR_DATA or ERROR_PLOT:
-        counter_of_broken += 1
-        broken_files.append(objects[i])
-    else:
-        print('{0}: {1}, Completeness [{2:.4}%], Plot_shape: {3}'.format(i, objects[i], (i - start_ + 1) / (ending_ - start_) * 100, len(freqs)))
-    
-print(counter_of_broken)
-print(broken_files)
+        if not ERROR_DATA:
+            try:
+                if str(objects[i]) not in images:
+                    plotter(fig, ax, objects[i], freqs, flux, catalogs)
+                else:
+                    pass
+            except:
+                ERROR_PLOT = 1
+            
+        if ERROR_PLOT:
+            print('{0}: {1}, PLOT ERROR'.format(i, objects[i]))
+        if ERROR_DATA:
+            print('{0}: {1}, DATA ERROR'.format(i, objects[i]))
+        if ERROR_DATA or ERROR_PLOT:
+            counter_of_broken += 1
+            broken_files.append(objects[i])
+        else:
+            print('{0}: {1}, Completeness [{2:.4}%], Plot_shape: {3}'.format(i, objects[i], (i - start_ + 1) / (ending_ - start_) * 100, len(freqs)))
+        
+    print(counter_of_broken)
+    print(broken_files)
