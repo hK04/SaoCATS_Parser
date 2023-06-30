@@ -20,7 +20,7 @@ DATA_EXT = '.txt'
 
 NASA_ADS_API_SEARCH    = 'https://api.adsabs.harvard.edu/v1/search/query?'
 NASA__ADS_API_DOWNLOAD = 'https://ui.adsabs.harvard.edu/link_gateway/'
-NASA_ADS_TOKEN         = 'DlUEZZV6jSJW5PopnQUopbObbJGNmlOpYfPijcMT'
+NASA_ADS_TOKEN         = '<YOUR TOKEN>'
 
 ARTICLES_DIR = 'articles/'
 
