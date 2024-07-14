@@ -11,9 +11,9 @@ pandas==1.4.2
 ```
 ### Architecture of project 
 
-`main.py` - downloads all data about ~6 thousand Radio Sources (AT20G publication) from CATS 
+`main.py` - downloads all data (about ~6 thousand Radio Sources (AT20G publication) from CATS)
 
-`parser.py` - selenium parser, could be used to download data from CATS without `main.py`
+`parser.py` - selenium parser, could be used to download data from CATS independently of `main.py`
 
 Input of `Searcher().search()` should consist of
 `name`, `RAh`, `RAm`, `RAs`, `DE`, `DEd`, `DEm`, `DEs`, `Epoch` as it used in AT20G publication 
